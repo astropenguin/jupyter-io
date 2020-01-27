@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "jupyter-io"
+version = "0.1.0"
+description = "Python pacakge of some I/O utilities for Jupyter notebook"
+authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
