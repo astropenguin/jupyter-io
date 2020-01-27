@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "jupyter_io"
+name = "jupyter-io"
 version = "0.1.0"
 description = "Python pacakge of some I/O utilities for Jupyter notebook"
 authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
