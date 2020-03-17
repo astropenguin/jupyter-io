@@ -1,3 +1,6 @@
+# flake8: noqa
+
+
 # dependent packages
 import pandas as pd
 from jupyter_io import savecsv_in_notebook
