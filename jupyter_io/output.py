@@ -1,17 +1,26 @@
 __all__ = ["savefile_in_notebook", "savefig_in_notebook", "savecsv_in_notebook"]
 
+
 # standard library
 from io import BytesIO, StringIO
 from base64 import b64encode
 from mimetypes import guess_type
 from pathlib import Path
+from typing import IO, Union
+
 
 # dependent packages
 import matplotlib.pyplot as plt
 from IPython.display import HTML
+from pandas import DataFrame
 
 
-def savefile_in_notebook(f, filename, encoding="utf-8"):
+# type aliases
+FigType = Union[plt.Figure, None]
+
+
+# main functions
+def savefile_in_notebook(f: IO, filename: str, encoding: str = "utf-8") -> HTML:
     """Embed file object in a notebook with given filename."""
     f.seek(0)
     data = f.read()
@@ -32,7 +41,7 @@ def savefile_in_notebook(f, filename, encoding="utf-8"):
     return HTML(f'<a download="{filename}" href="{href}" target="{target}">{text}</a>')
 
 
-def savefig_in_notebook(filename, fig=None, **kwargs):
+def savefig_in_notebook(filename: str, fig: FigType = None, **kwargs) -> HTML:
     """Embed matplotlib figure in a notebook with given name."""
     if fig is None:
         fig = plt.gcf()
@@ -45,7 +54,7 @@ def savefig_in_notebook(filename, fig=None, **kwargs):
         return savefile_in_notebook(f, filename)
 
 
-def savecsv_in_notebook(df, filename, **kwargs):
+def savecsv_in_notebook(df: DataFrame, filename: str, **kwargs) -> HTML:
     """Embed pandas dataframe in a notebook with given name."""
     with StringIO() as f:
         df.to_csv(f, **kwargs)
