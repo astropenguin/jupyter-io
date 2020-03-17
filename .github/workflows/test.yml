@@ -23,8 +23,8 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Lint with flake8
-        run: poetry run flake8 azely
+        run: poetry run flake8 jupyter_io
       - name: Format with flake8
-        run: poetry run black --check azely
+        run: poetry run black --check jupyter_io
       - name: Test with pytest
         run : poetry run pytest
