@@ -1,20 +1,22 @@
 [tool.poetry]
 name = "jupyter-io"
-version = "0.1.2"
-description = "Python pacakge of some I/O utilities for Jupyter notebook"
+version = "0.1.3"
+description = "Python pakcage of some I/O utilities for Jupyter notebook"
 authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
-license = "MIT"
 homepage = "https://github.com/astropenguin/jupyter-io"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.6"
 matplotlib = "^3.1"
-ipython = "^7.11"
-pandas = ">= 0.25.0, < 1.1.0"
+ipython = ">= 5.5"
+pandas = ">= 0.25"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"
 black = "^19.10b0"
+jupyter = "^1.0"
+jupyterlab = "^2.0"
 pytest = "^5.3"
 
 [build-system]
