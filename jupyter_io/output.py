@@ -16,11 +16,12 @@ from pandas import DataFrame
 
 
 # type aliases
-FigType = Union[plt.Figure, None]
+FigLike = Union[plt.Figure, None]
+PathLike = Union[Path, str]
 
 
 # main functions
-def savefile_in_notebook(f: IO, filename: str, encoding: str = "utf-8") -> HTML:
+def savefile_in_notebook(f: IO, filename: PathLike, encoding: str = "utf-8") -> HTML:
     """Embed file object in a notebook with given filename."""
     f.seek(0)
     data = f.read()
@@ -41,7 +42,7 @@ def savefile_in_notebook(f: IO, filename: str, encoding: str = "utf-8") -> HTML:
     return HTML(f'<a download="{filename}" href="{href}" target="{target}">{text}</a>')
 
 
-def savefig_in_notebook(filename: str, fig: FigType = None, **kwargs) -> HTML:
+def savefig_in_notebook(filename: PathLike, fig: FigLike = None, **kwargs) -> HTML:
     """Embed matplotlib figure in a notebook with given name."""
     if fig is None:
         fig = plt.gcf()
@@ -54,7 +55,7 @@ def savefig_in_notebook(filename: str, fig: FigType = None, **kwargs) -> HTML:
         return savefile_in_notebook(f, filename)
 
 
-def savecsv_in_notebook(df: DataFrame, filename: str, **kwargs) -> HTML:
+def savecsv_in_notebook(df: DataFrame, filename: PathLike, **kwargs) -> HTML:
     """Embed pandas dataframe in a notebook with given name."""
     with StringIO() as f:
         df.to_csv(f, **kwargs)
