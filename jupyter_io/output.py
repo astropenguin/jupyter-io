@@ -1,4 +1,4 @@
-__all__ = ["savefile_in_notebook", "savefig_in_notebook", "savecsv_in_notebook"]
+__all__ = ["savefile_in_notebook", "savefig_in_notebook", "savetable_in_notebook"]
 
 
 # standard library
@@ -6,23 +6,32 @@ from io import BytesIO, StringIO
 from base64 import b64encode
 from mimetypes import guess_type
 from pathlib import Path
-from typing import IO, Union
+from typing import IO, Optional, Union
 
 
 # dependent packages
-import matplotlib.pyplot as plt
 from IPython.display import HTML
-from pandas import DataFrame
+from matplotlib.pyplot import Figure, gcf
+from pandas import DataFrame, Series
 
 
 # type aliases
-FigLike = Union[plt.Figure, None]
 PathLike = Union[Path, str]
 
 
 # main functions
 def savefile_in_notebook(f: IO, filename: PathLike, encoding: str = "utf-8") -> HTML:
-    """Embed file object in a notebook with given filename."""
+    """Save file object in a notebook as a Base64 file.
+
+    Args:
+        f: File object to be saved.
+        filename: Name of a saved file.
+        encoding: Text encoding. It is only used if ``f`` is a ``StringIO`` object.
+
+    Returns:
+        html: HTML object which shows the download link.
+
+    """
     f.seek(0)
     data = f.read()
 
@@ -34,18 +43,28 @@ def savefile_in_notebook(f: IO, filename: PathLike, encoding: str = "utf-8") -> 
         base64 = b64encode(data).decode()
 
     filename = Path(filename).name
-    mime = guess_type(filename)[0]
-    href = f"data:{mime};base64,{base64}"
-    text = f"Download {filename}"
-    target = "_blank"
+    href = f"data:{guess_type(filename)[0]};base64,{base64}"
 
-    return HTML(f'<a download="{filename}" href="{href}" target="{target}">{text}</a>')
+    anchor = f'<a download="{filename}" href="{href}" target="_blank">{filename}</a>'
+    return HTML(f"<p>Download: {anchor}</p>")
 
 
-def savefig_in_notebook(filename: PathLike, fig: FigLike = None, **kwargs) -> HTML:
-    """Embed matplotlib figure in a notebook with given name."""
+def savefig_in_notebook(
+    fig: Optional[Figure] = None, filename: PathLike = "figure.pdf", **kwargs,
+) -> HTML:
+    """Save matplotlib figure in a notebook as a file.
+
+    Args:
+        fig: Matplotlib ``Figure`` object to be saved.
+        filename: Filename with explicit extension (e.g., ``figure.pdf``).
+        **kwargs: Arguments to be passed to matplotlib ``savefig()``.
+
+    Returns:
+        html: HTML object which shows the download link.
+
+    """
     if fig is None:
-        fig = plt.gcf()
+        fig = gcf()
 
     format_ = Path(filename).suffix.lstrip(".")
     kwargs.setdefault("format", format_)
@@ -55,8 +74,22 @@ def savefig_in_notebook(filename: PathLike, fig: FigLike = None, **kwargs) -> HT
         return savefile_in_notebook(f, filename)
 
 
-def savecsv_in_notebook(df: DataFrame, filename: PathLike, **kwargs) -> HTML:
-    """Embed pandas dataframe in a notebook with given name."""
+def savetable_in_notebook(
+    table: Union[DataFrame, Series], filename: PathLike = "table.csv", **kwargs,
+):
+    """Save pandas DataFrame or Series in a notebook as a file.
+
+    Args:
+        table: pandas ``DataFrame`` of ``Series object`` to be saved.
+        filename: Filename with explicit extension (e.g., ``table.csv``).
+        **kwargs: Arguments to be passed to ``table.to_<extension>()``.
+
+    Returns:
+        html: HTML object which shows the download link.
+
+    """
+    format_ = Path(filename).suffix.lstrip(".")
+
     with StringIO() as f:
-        df.to_csv(f, **kwargs)
+        getattr(table, f"to_{format_}")(f, **kwargs)
         return savefile_in_notebook(f, filename)

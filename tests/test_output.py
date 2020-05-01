@@ -3,18 +3,20 @@
 
 # dependent packages
 import pandas as pd
-from jupyter_io import savecsv_in_notebook
+from jupyter_io import savetable_in_notebook
 
 
 # constants
-expected_csv = (
-    '<a download="test.csv" '
+TABLE_HTML = (
+    "<p>Download: "
+    '<a download="table.csv" '
     'href="data:text/csv;base64,LDAKMCwwCjEsMQoyLDIKMywzCjQsNAo1LDUKNiw2CjcsNwo4LDgKOSw5Cg==" '
-    'target="_blank">Download test.csv</a>'
+    'target="_blank">table.csv</a>'
+    "</p>"
 )
 
 
 # test functions
-def test_savecsv():
-    html = savecsv_in_notebook(pd.DataFrame(range(10)), "test.csv")
-    assert html.data == expected_csv
+def test_savetable():
+    html = savetable_in_notebook(pd.DataFrame(range(10)), "table.csv")
+    assert html.data == TABLE_HTML
