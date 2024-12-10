@@ -1,34 +1,18 @@
-[tool.poetry]
+[project]
 name = "jupyter-io"
-version = "0.2.0"
-description = "Embedding various outputs into Jupyter notebooks"
-authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
-keywords = ["ipython-notebook", "jupyter-notebook", "matplotlib", "pandas"]
-license = "MIT"
+version = "1.0.0"
+description = "Direct saving and loading of files into Jupyter notebooks"
 readme = "README.md"
-homepage = "https://github.com/astropenguin/jupyter-io/"
-documentation = "https://astropenguin.github.io/jupyter-io/"
+authors = [{ name = "Akio Taniguchi", email = "taniguchi.akio@gmail.com" }]
+keywords = ["python", "jupyter-notebook"]
+urls = { repository = "https://github.com/astropenguin/jupyter-io" }
+license = { file = "LICENSE" }
+requires-python = ">=3.8,<3.14"
+dependencies = ["ipython>=7.0,<9.0"]
 
-[tool.poetry.dependencies]
-python = ">=3.7.1, <3.11"
-ipython = [
-    { version = ">=7.10, <8.0", python = ">=3.7.1, <3.8" },
-    { version = "^8.0", python = ">=3.8, <3.11" },
-]
-matplotlib = "^3.1"
-pandas = [
-    { version = ">=1.2, <1.4", python = ">=3.7.1, <3.8" },
-    { version = "^1.4", python = ">=3.8, <3.11" },
-]
-
-[tool.poetry.group.dev.dependencies]
-black = "^22.8"
-myst-parser = "^0.18"
-pydata-sphinx-theme = "^0.9"
-pyright = "^1.1"
-pytest = "^7.1"
-sphinx = "^5.1"
+[dependency-groups]
+dev = ["pytest>=8.3", "ruff>=0.8"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
