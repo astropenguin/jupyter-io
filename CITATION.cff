@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+
+title: "jupyter-io"
+abstract: "Direct saving and loading of files into Jupyter notebooks"
+version: 1.0.1
+date-released: 2024-12-11
+license: "MIT"
+doi: "10.5281/zenodo.14379974"
+url: "https://github.com/astropenguin/jupyter-io"
+authors:
+  - given-names: "Akio"
+    family-names: "Taniguchi"
+    affiliation: "Kitami Institute of Technology"
+    orcid: "https://orcid.org/0000-0002-9695-6183"
