@@ -3,7 +3,7 @@ name = "jupyter-io"
 version = "1.0.0"
 description = "Direct saving and loading of files into Jupyter notebooks"
 readme = "README.md"
-keywords = ["python", "jupyter-notebook", "io"]
+keywords = ["python", "jupyter", "io"]
 requires-python = ">=3.9,<3.14"
 dependencies = [
     "ipython>=7.0,<9.0",
