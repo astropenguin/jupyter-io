@@ -3,10 +3,7 @@ name = "jupyter-io"
 version = "1.0.0"
 description = "Direct saving and loading of files into Jupyter notebooks"
 readme = "README.md"
-authors = [{ name = "Akio Taniguchi", email = "taniguchi.akio@gmail.com" }]
-keywords = ["python", "jupyter-notebook", "io"]
-urls = { repository = "https://github.com/astropenguin/jupyter-io" }
-license = { file = "LICENSE" }
+keywords = ["python", "jupyter", "io"]
 requires-python = ">=3.9,<3.14"
 dependencies = [
     "ipython>=7.0,<9.0",
@@ -15,8 +12,26 @@ dependencies = [
     "pandas-stubs>=1.5,<3.0",
 ]
 
+[[project.authors]]
+name = "Akio Taniguchi"
+email = "taniguchi.akio@gmail.com"
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+homepage = "https://astropenguin.github.io/jupyter-io/v1.0.0"
+repository = "https://github.com/astropenguin/jupyter-io"
+
 [dependency-groups]
-dev = ["black>=24.8", "pyright>=1.1", "pytest>=8.3"]
+dev = [
+    "black>=24.8",
+    "myst-parser>=3.0",
+    "pydata-sphinx-theme>=0.16",
+    "pyright>=1.1",
+    "pytest>=8.3",
+    "sphinx>=7.4",
+]
 
 [build-system]
 requires = ["hatchling"]

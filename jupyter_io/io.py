@@ -50,12 +50,25 @@ def in_notebook(
     Returns:
         The same object as ``file``.
 
-    Examples::
+    Examples:
+        To save a Matplotlib figure into a notebook::
 
-        import matplotlib.pyplot as plt
+            import matplotlib.pyplot as plt
 
-        plt.plot([1, 2, 3])
-        plt.savefig(in_notebook("plot.pdf"))
+            plt.plot([1, 2, 3])
+            plt.savefig(in_notebook("plot.pdf"))
+
+        To save a pandas series into a notebook::
+
+            import pandas as pd
+
+            ser = pd.Series([1, 2, 3])
+            ser.to_csv(in_notebook("series.csv"))
+
+        To save a general text into a notebook::
+
+            with open(in_notebook("output.txt"), "w") as f:
+                f.write("1, 2, 3\n")
 
     """
     if (ip := get_ipython()) is not None:
@@ -117,13 +130,29 @@ def to_notebook(
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
-    Examples::
+    Examples:
+        To save a Matplotlib figure into a notebook::
 
-        import matplotlib.pyplot as plt
+            import matplotlib.pyplot as plt
 
-        plt.plot([1, 2, 3])
-        plt.savefig("plot.pdf")
-        to_notebook("plot.pdf")
+            plt.plot([1, 2, 3])
+            plt.savefig("plot.pdf")
+            to_notebook("plot.pdf")
+
+        To save a pandas series into a notebook::
+
+            import pandas as pd
+
+            ser = pd.Series([1, 2, 3])
+            ser.to_csv("series.csv")
+            to_notebook("series.csv")
+
+        To save a general text into a notebook::
+
+            with open("output.txt", "w") as f:
+                f.write("1, 2, 3\n")
+
+            to_notebook("output.txt")
 
     """
     display(to_html(file, prefix=prefix, suffix=suffix))
