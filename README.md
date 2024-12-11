@@ -6,3 +6,57 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/astropenguin/jupyter-io/tests.yaml?label=Tests&style=flat-square)](https://github.com/astropenguin/jupyter-io/actions)
 
 Direct saving and loading of files into Jupyter notebooks
+
+## Installation
+
+```shell
+$ pip install jupyter-io
+```
+
+## File saving
+
+jupyter-io provides the `in_notebook` function to directly save (i.e. embed) files into Jupyter notebooks.
+Suppose you create a Matplotlib figure want to save it as a PDF file.
+The following code will save the PDF file into your local environment:
+```python
+import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3])
+plt.savefig("figure.pdf")
+```
+This should work in most cases, however, in a virtual environment like [Google Colaboratory](https://colab.research.google.com/), you will not be able to get the file once the Jupyter server is stopped.
+By wrapping the file path by `in_notebook`, the PDF file will be directly saved into the Jupyter notebook and you will get a download link instead:
+```python
+import matplotlib.pyplot as plt
+from jupyter_io import in_notebook
+
+plt.plot([1, 2, 3])
+plt.savefig(in_notebook("figure.pdf"))
+```
+The download link works when the Jupyter server is stopped, and even when it does not exist.
+This makes Jupyter notebooks more portable, for example, to share the output data other than images together with them.
+
+### More examples
+
+To save a general text into a notebook:
+
+```python
+from jupyter_io import in_notebook
+
+with open(in_notebook("output.txt"), "w") as f:
+    f.write("1, 2, 3\n")
+```
+
+To save a pandas series into a notebook as CSV:
+
+```python
+import pandas as pd
+from jupyter_io import in_notebook
+
+ser = pd.Series([1, 2, 3])
+ser.to_csv(in_notebook("series.csv"))
+```
+
+## File loading
+
+The file loading feature has not been implemented yet.
