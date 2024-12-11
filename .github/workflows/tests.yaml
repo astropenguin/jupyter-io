@@ -30,3 +30,4 @@ jobs:
       - run: black --check jupyter_io
       - run: pyright jupyter_io
       - run: pytest -v
+      - run: docs/build
