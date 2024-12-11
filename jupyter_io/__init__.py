@@ -1,6 +1,6 @@
 __all__ = [
     # submodules
-    "deprecated",
+    "v0",
     "save",
     # aliases
     "to_html",
@@ -13,12 +13,12 @@ __version__ = "1.0.0"
 
 
 # submodules
-from . import deprecated
+from . import v0
 from . import save
 
 
 # aliases
-from .deprecated import (
+from .v0 import (
     savefile_in_notebook,
     savefig_in_notebook,
     savetable_in_notebook,
