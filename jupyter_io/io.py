@@ -1,4 +1,4 @@
-__all__ = ["in_notebook", "to_html", "to_notebook"]
+__all__ = ["in_notebook", "to_notebook"]
 
 
 # standard library
