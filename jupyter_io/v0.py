@@ -36,6 +36,12 @@ def savefile_in_notebook(
 ) -> None:
     """Save file object (I/O object) in a notebook as a file.
 
+    Warning:
+        This function is deprecated and will be removed in a future release.
+        Use ``jupyter_io.in_notebook`` instead like::
+
+            f.write(in_notebook(filename))
+
     Args:
         f: File object (I/O object) to be saved.
         filename: Filename of the saved file.
@@ -67,6 +73,12 @@ def savefig_in_notebook(
 ) -> None:
     """Save matplotlib figure in a notebook as a file.
 
+    Warning:
+        This function is deprecated and will be removed in a future release.
+        Use ``jupyter_io.in_notebook`` instead like::
+
+            fig.savefig(in_notebook('figure.pdf'))
+
     Args:
         fig: Matplotlib ``Figure`` object to be saved.
         filename: Filename with explicit extension (e.g., ``figure.pdf``).
@@ -94,6 +106,12 @@ def savetable_in_notebook(
     **kwargs: Any,
 ) -> None:
     """Save pandas DataFrame or Series in a notebook as a file.
+
+    Warning:
+        This function is deprecated and will be removed in a future release.
+        Use ``jupyter_io.in_notebook`` instead like::
+
+            table.to_csv(in_notebook('table.csv'))
 
     Args:
         table: pandas ``DataFrame`` of ``Series object`` to be saved.
