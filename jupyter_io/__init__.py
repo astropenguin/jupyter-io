@@ -5,6 +5,7 @@ __all__ = [
     # aliases
     "to_html",
     "in_notebook",
+    "to_notebook",
     "savefile_in_notebook",
     "savefig_in_notebook",
     "savetable_in_notebook",
@@ -18,7 +19,7 @@ from . import v0
 
 
 # aliases
-from .io import to_html, in_notebook
+from .io import to_html, in_notebook, to_notebook
 from .v0 import (
     savefile_in_notebook,
     savefig_in_notebook,

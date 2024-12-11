@@ -1,4 +1,4 @@
-__all__ = ["in_notebook", "to_html"]
+__all__ = ["in_notebook", "to_html", "to_notebook"]
 
 
 # standard library
@@ -20,6 +20,7 @@ TPathLike = TypeVar("TPathLike", bound=PathLike)
 
 
 # constants
+DEFAULT_LEAVE = False
 DEFAULT_PREFIX = "Download: "
 DEFAULT_SUFFIX = ""
 
@@ -28,18 +29,21 @@ def in_notebook(
     file: TPathLike,
     /,
     *,
+    leave: bool = DEFAULT_LEAVE,
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> TPathLike:
     """Save a file directly into a Jupyter notebook.
 
-    The file saving is deferred until after the cell execution is completed,
-    and a download link for the file will be then displayed.
-    This allows this function to be applied to even files that do not exist.
+    Unlike ``to_notebook``, where file saving is performed immediately,
+    it will be deferred until after cell running is completed.
+    So this function is intended to be called together with file saving
+    by another library, in a manner of wrapping the path of the file.
     See also the examples below.
 
     Args:
         file: Path of the file to be saved.
+        leave: Whether to leave the original file.
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
@@ -58,7 +62,7 @@ def in_notebook(
 
         def callback(result: ExecutionResult, /) -> None:
             try:
-                display(to_html(file, prefix=prefix, suffix=suffix))
+                to_notebook(file, leave=leave, prefix=prefix, suffix=suffix)
             finally:
                 ip.events.unregister("post_run_cell", callback)
 
@@ -74,7 +78,7 @@ def to_html(
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> HTML:
-    """Convert a file to an HTML object with its data embedded as a download link.
+    """Convert a file to a download link with its data embedded.
 
     Args:
         file: Path of the file to be embedded.
@@ -82,12 +86,47 @@ def to_html(
         suffix: Suffix of the download link.
 
     Returns:
-        HTML object with the file data embedded as a download link.
+        Download link with the file data embedded.
 
     """
-    with open(file, "+rb") as f:
+    with open(file := Path(file), "+rb") as f:
         data = b64encode(f.read()).decode()
 
     href = f"data:{guess_type(file)[0]};base64,{data}"
-    link = f"<a download='{Path(file).name}' href='{href}' target='_blank'>{file}</a>"
+    link = f"<a download='{file.name}' href='{href}' target='_blank'>{file}</a>"
     return HTML(f"<p>{prefix}{link}{suffix}</p>")
+
+
+def to_notebook(
+    file: PathLike,
+    /,
+    *,
+    leave: bool = DEFAULT_LEAVE,
+    prefix: str = DEFAULT_PREFIX,
+    suffix: str = DEFAULT_SUFFIX,
+) -> None:
+    """Save a file directly into a Jupyter notebook.
+
+    A download link will be displayed after the file is saved.
+    By default, the original file will be then deleted.
+    Specify ``leave=True`` in order to avoid deletion.
+
+    Args:
+        file: Path of the file to be saved.
+        leave: Whether to leave the original file.
+        prefix: Prefix of the download link.
+        suffix: Suffix of the download link.
+
+    Examples::
+
+        import matplotlib.pyplot as plt
+
+        plt.plot([1, 2, 3])
+        plt.savefig("plot.pdf")
+        to_notebook("plot.pdf")
+
+    """
+    display(to_html(file, prefix=prefix, suffix=suffix))
+
+    if not leave:
+        Path(file).unlink(missing_ok=True)
