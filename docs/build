@@ -1,0 +1,4 @@
+#!/bin/bash -eu
+
+sphinx-apidoc -efT -o docs/_apidoc jupyter_io
+sphinx-build -a docs docs/_build
