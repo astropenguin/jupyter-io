@@ -68,7 +68,7 @@ def in_notebook(
         To save a general text into a notebook::
 
             with open(in_notebook("output.txt"), "w") as f:
-                f.write("1, 2, 3\n")
+                f.write("1, 2, 3\\n")
 
     """
     if (ip := get_ipython()) is not None:
@@ -150,7 +150,7 @@ def to_notebook(
         To save a general text into a notebook::
 
             with open("output.txt", "w") as f:
-                f.write("1, 2, 3\n")
+                f.write("1, 2, 3\\n")
 
             to_notebook("output.txt")
 

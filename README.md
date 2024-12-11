@@ -3,6 +3,7 @@
 [![Release](https://img.shields.io/pypi/v/jupyter-io?label=Release&color=cornflowerblue&style=flat-square)](https://pypi.org/project/jupyter-io/)
 [![Python](https://img.shields.io/pypi/pyversions/jupyter-io?label=Python&color=cornflowerblue&style=flat-square)](https://pypi.org/project/jupyter-io/)
 [![Downloads](https://img.shields.io/pypi/dm/jupyter-io?label=Downloads&color=cornflowerblue&style=flat-square)](https://pepy.tech/project/jupyter-io)
+[![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.14379974-cornflowerblue?style=flat-square)](https://doi.org/10.5281/zenodo.14379974)
 [![Tests](https://img.shields.io/github/actions/workflow/status/astropenguin/jupyter-io/tests.yaml?label=Tests&style=flat-square)](https://github.com/astropenguin/jupyter-io/actions)
 
 Direct saving and loading of files into Jupyter notebooks
@@ -38,16 +39,7 @@ This makes Jupyter notebooks more portable, for example, to share the output dat
 
 ### More examples
 
-To save a general text into a notebook:
-
-```python
-from jupyter_io import in_notebook
-
-with open(in_notebook("output.txt"), "w") as f:
-    f.write("1, 2, 3\n")
-```
-
-To save a pandas series into a notebook as CSV:
+To save a pandas series into a notebook:
 
 ```python
 import pandas as pd
@@ -55,6 +47,15 @@ from jupyter_io import in_notebook
 
 ser = pd.Series([1, 2, 3])
 ser.to_csv(in_notebook("series.csv"))
+```
+
+To save a general text into a notebook:
+
+```python
+from jupyter_io import in_notebook
+
+with open(in_notebook("output.txt"), "w") as f:
+    f.write("1, 2, 3\n")
 ```
 
 ## File loading
