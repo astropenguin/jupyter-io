@@ -16,7 +16,14 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["black>=24.8", "pyright>=1.1", "pytest>=8.3"]
+dev = [
+    "black>=24.8",
+    "myst-parser>=3.0",
+    "pydata-sphinx-theme>=0.16",
+    "pyright>=1.1",
+    "pytest>=8.3",
+    "sphinx>=7.4",
+]
 
 [build-system]
 requires = ["hatchling"]
