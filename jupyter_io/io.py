@@ -65,6 +65,11 @@ def in_notebook(
             ser = pd.Series([1, 2, 3])
             ser.to_csv(in_notebook("series.csv"))
 
+        To save a general text into a notebook::
+
+            with open(in_notebook("output.txt"), "w") as f:
+                f.write("1, 2, 3\n")
+
     """
     if (ip := get_ipython()) is not None:
 
@@ -141,6 +146,13 @@ def to_notebook(
             ser = pd.Series([1, 2, 3])
             ser.to_csv("series.csv")
             to_notebook("series.csv")
+
+        To save a general text into a notebook::
+
+            with open("output.txt", "w") as f:
+                f.write("1, 2, 3\n")
+
+            to_notebook("output.txt")
 
     """
     display(to_html(file, prefix=prefix, suffix=suffix))
