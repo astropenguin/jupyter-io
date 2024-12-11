@@ -11,7 +11,7 @@ from warnings import catch_warnings, simplefilter, warn
 from matplotlib.figure import Figure
 from matplotlib.pyplot import gcf
 from pandas import DataFrame, Series
-from .save import PathLike, in_notebook
+from .io import PathLike, in_notebook
 
 
 @overload
