@@ -1,8 +1,8 @@
 # jupyter-io
 
-[![PyPI](https://img.shields.io/pypi/v/jupyter-io.svg?label=PyPI&style=flat-square)](https://pypi.org/pypi/jupyter-io/)
-[![Python](https://img.shields.io/pypi/pyversions/jupyter-io.svg?label=Python&color=yellow&style=flat-square)](https://pypi.org/pypi/jupyter-io/)
-[![Test](https://img.shields.io/github/workflow/status/astropenguin/jupyter-io/Test?logo=github&label=Test&style=flat-square)](https://github.com/astropenguin/jupyter-io/actions)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?label=License&style=flat-square)](LICENSE)
+[![Release](https://img.shields.io/pypi/v/jupyter-io?label=Release&color=cornflowerblue&style=flat-square)](https://pypi.org/project/jupyter-io/)
+[![Python](https://img.shields.io/pypi/pyversions/jupyter-io?label=Python&color=cornflowerblue&style=flat-square)](https://pypi.org/project/jupyter-io/)
+[![Downloads](https://img.shields.io/pypi/dm/jupyter-io?label=Downloads&color=cornflowerblue&style=flat-square)](https://pepy.tech/project/jupyter-io)
+[![Tests](https://img.shields.io/github/actions/workflow/status/astropenguin/jupyter-io/tests.yml?label=Tests&style=flat-square)](https://github.com/astropenguin/jupyter-io/actions)
 
-:zap: Python package of some I/O utilities for Jupyter notebook
+Direct saving and loading of files into Jupyter notebooks
