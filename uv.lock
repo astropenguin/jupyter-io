@@ -507,11 +507,11 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "black", specifier = ">=24.8" },
-    { name = "myst-parser", specifier = ">=3.0.1" },
-    { name = "pydata-sphinx-theme", specifier = ">=0.16.0" },
+    { name = "myst-parser", specifier = ">=3.0" },
+    { name = "pydata-sphinx-theme", specifier = ">=0.16" },
     { name = "pyright", specifier = ">=1.1" },
     { name = "pytest", specifier = ">=8.3" },
-    { name = "sphinx", specifier = ">=7.4.7" },
+    { name = "sphinx", specifier = ">=7.4" },
 ]
 
 [[package]]
