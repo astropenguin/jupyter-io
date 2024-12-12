@@ -32,21 +32,26 @@ def in_notebook(
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> TPathLike:
-    """Save a file directly into a Jupyter notebook.
+    """Save a file to a Jupyter notebook as a data-embedded download link.
 
-    Unlike ``to_notebook``, where file saving is performed immediately,
-    it will be deferred until after cell running is completed.
-    So this function is intended to be called together with file saving
+    This function is intended to be used together with file saving
     by another library, in a manner of wrapping the path of the file.
-    See also the examples below.
+    It will return the path of a temporary file for temporary file saving.
+    When the code cell running that saved the file is completed,
+    the temporary file will be automatically converted to a download link
+    with the file data embedded in it, and the link will be displayed.
 
     Args:
-        file: Path of the file to be saved.
+        file: Path of the file to be saved. Even if an absolute or relative
+            path is given, only the name part will be used for file saving.
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
     Returns:
-        The same object as ``file``.
+        Path of the temporary file until it will be saved to a Jupyter notebook.
+
+    Raises:
+        RuntimeError: Raised if current interactive shell does not exist.
 
     Examples:
         To save a Matplotlib figure into a notebook::
@@ -93,15 +98,15 @@ def to_html(
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> HTML:
-    """Convert a file to a download link with its data embedded.
+    """Convert a file to a download link with the file data embedded in it.
 
     Args:
-        file: Path of the file to be embedded.
+        file: Path of the file to be converted.
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
     Returns:
-        Download link with the file data embedded.
+        HTML object of the download link with the file data embedded in it.
 
     """
     with open(file := Path(file), "+rb") as f:
@@ -119,11 +124,7 @@ def to_notebook(
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> None:
-    """Save a file directly into a Jupyter notebook.
-
-    A download link will be displayed after the file is saved.
-    By default, the original file will be then deleted.
-    Specify ``leave=True`` in order to avoid deletion.
+    """Save a file to a Jupyter notebook as a data-embedded download link.
 
     Args:
         file: Path of the file to be saved.
