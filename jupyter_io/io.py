@@ -5,6 +5,7 @@ __all__ = ["in_notebook", "to_notebook"]
 from base64 import b64encode
 from mimetypes import guess_type
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import TypeVar, Union
 
 
@@ -20,7 +21,6 @@ TPathLike = TypeVar("TPathLike", bound=PathLike)
 
 
 # constants
-DEFAULT_LEAVE = False
 DEFAULT_PREFIX = "Download: "
 DEFAULT_SUFFIX = ""
 
@@ -29,26 +29,29 @@ def in_notebook(
     file: TPathLike,
     /,
     *,
-    leave: bool = DEFAULT_LEAVE,
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> TPathLike:
-    """Save a file directly into a Jupyter notebook.
+    """Save a file to a Jupyter notebook as a data-embedded download link.
 
-    Unlike ``to_notebook``, where file saving is performed immediately,
-    it will be deferred until after cell running is completed.
-    So this function is intended to be called together with file saving
+    This function is intended to be used together with file saving
     by another library, in a manner of wrapping the path of the file.
-    See also the examples below.
+    It will return the path of a temporary file for temporary file saving.
+    When the code cell running that saved the file is completed,
+    the temporary file will be automatically converted to a download link
+    with the file data embedded in it, and the link will be displayed.
 
     Args:
-        file: Path of the file to be saved.
-        leave: Whether to leave the original file.
+        file: Path of the file to be saved. Even if an absolute or relative
+            path is given, only the name part will be used for file saving.
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
     Returns:
-        The same object as ``file``.
+        Path of the temporary file until it will be saved to a Jupyter notebook.
+
+    Raises:
+        RuntimeError: Raised if current interactive shell does not exist.
 
     Examples:
         To save a Matplotlib figure into a notebook::
@@ -71,17 +74,21 @@ def in_notebook(
                 f.write("1, 2, 3\\n")
 
     """
-    if (ip := get_ipython()) is not None:
+    if (ip := get_ipython()) is None:
+        raise RuntimeError("Current interactive shell does not exist.")
 
-        def callback(result: ExecutionResult, /) -> None:
-            try:
-                to_notebook(file, leave=leave, prefix=prefix, suffix=suffix)
-            finally:
-                ip.events.unregister("post_run_cell", callback)
+    tempdir = TemporaryDirectory()
+    tempfile = Path(tempdir.name) / Path(file).name
 
-        ip.events.register("post_run_cell", callback)
+    def callback(result: ExecutionResult, /) -> None:
+        try:
+            to_notebook(tempfile, prefix=prefix, suffix=suffix)
+        finally:
+            ip.events.unregister("post_run_cell", callback)
+            tempdir.cleanup()
 
-    return file
+    ip.events.register("post_run_cell", callback)
+    return type(file)(tempfile)
 
 
 def to_html(
@@ -91,42 +98,36 @@ def to_html(
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> HTML:
-    """Convert a file to a download link with its data embedded.
+    """Convert a file to a download link with the file data embedded in it.
 
     Args:
-        file: Path of the file to be embedded.
+        file: Path of the file to be converted.
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
     Returns:
-        Download link with the file data embedded.
+        HTML object of the download link with the file data embedded in it.
 
     """
     with open(file := Path(file), "+rb") as f:
         data = b64encode(f.read()).decode()
 
+    download = file.name
     href = f"data:{guess_type(file)[0]};base64,{data}"
-    link = f"<a download='{file.name}' href='{href}' target='_blank'>{file}</a>"
-    return HTML(f"<p>{prefix}{link}{suffix}</p>")
+    return HTML(f"<p>{prefix}<a {download=} {href=}>{download}</a>{suffix}</p>")
 
 
 def to_notebook(
     file: PathLike,
     /,
     *,
-    leave: bool = DEFAULT_LEAVE,
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> None:
-    """Save a file directly into a Jupyter notebook.
-
-    A download link will be displayed after the file is saved.
-    By default, the original file will be then deleted.
-    Specify ``leave=True`` in order to avoid deletion.
+    """Save a file to a Jupyter notebook as a data-embedded download link.
 
     Args:
         file: Path of the file to be saved.
-        leave: Whether to leave the original file.
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
@@ -156,6 +157,3 @@ def to_notebook(
 
     """
     display(to_html(file, prefix=prefix, suffix=suffix))
-
-    if not leave:
-        Path(file).unlink(missing_ok=True)

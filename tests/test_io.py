@@ -13,6 +13,8 @@ def test_to_html() -> None:
         f.seek(0)
 
         file = Path(f.name)
+        download = file.name
         href = "data:text/plain;base64,MSwgMiwgMwo="
-        link = f"<a download='{file.name}' href='{href}' target='_blank'>{file}</a>"
-        assert to_html(file, prefix="", suffix="").data == f"<p>{link}</p>"
+
+        html = f"<p><a {download=} {href=}>{download}</a></p>"
+        assert to_html(file, prefix="", suffix="").data == html

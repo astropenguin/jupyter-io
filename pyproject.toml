@@ -1,7 +1,7 @@
 [project]
 name = "jupyter-io"
-version = "1.0.1"
-description = "Direct saving and loading of files into Jupyter notebooks"
+version = "2.0.0"
+description = "Saving and loading files directly into Jupyter notebooks"
 readme = "README.md"
 keywords = ["python", "jupyter", "io"]
 requires-python = ">=3.9,<3.14"
@@ -10,6 +10,15 @@ dependencies = [
     "matplotlib>=3.0,<4.0",
     "pandas>=1.5,<3.0",
     "pandas-stubs>=1.5,<3.0",
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 [[project.authors]]
@@ -20,7 +29,7 @@ email = "taniguchi.akio@gmail.com"
 file = "LICENSE"
 
 [project.urls]
-homepage = "https://astropenguin.github.io/jupyter-io/v1.0.1"
+homepage = "https://astropenguin.github.io/jupyter-io/v2.0.0"
 repository = "https://github.com/astropenguin/jupyter-io"
 
 [dependency-groups]
