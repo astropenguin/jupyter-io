@@ -1,7 +1,7 @@
 [project]
 name = "jupyter-io"
 version = "2.0.0"
-description = "Direct saving and loading of files into Jupyter notebooks"
+description = "Saving and loading files directly into Jupyter notebooks"
 readme = "README.md"
 keywords = ["python", "jupyter", "io"]
 requires-python = ">=3.9,<3.14"

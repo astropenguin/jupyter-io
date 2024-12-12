@@ -6,7 +6,7 @@
 [![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.14379974-cornflowerblue?style=flat-square)](https://doi.org/10.5281/zenodo.14379974)
 [![Tests](https://img.shields.io/github/actions/workflow/status/astropenguin/jupyter-io/tests.yaml?label=Tests&style=flat-square)](https://github.com/astropenguin/jupyter-io/actions)
 
-Direct saving and loading of files into Jupyter notebooks
+Saving and loading files directly into Jupyter notebooks
 
 ## Installation
 
