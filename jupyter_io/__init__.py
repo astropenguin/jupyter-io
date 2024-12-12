@@ -9,7 +9,7 @@ __all__ = [
     "savefig_in_notebook",
     "savetable_in_notebook",
 ]
-__version__ = "1.0.1"
+__version__ = "2.0.0"
 
 
 # submodules
