@@ -11,12 +11,12 @@ Saving and loading files directly into Jupyter notebooks
 ## Installation
 
 ```shell
-$ pip install jupyter-io
+pip install jupyter-io
 ```
 
 ## File saving
 
-jupyter-io provides the `in_notebook` function to directly save (i.e. embed) files into Jupyter notebooks.
+jupyter-io provides the `in_notebook` function to directly save (i.e. embed) files to Jupyter notebooks.
 Suppose you create a Matplotlib figure want to save it as a PDF file.
 The following code will save the PDF file into your local environment:
 ```python
@@ -25,8 +25,8 @@ import matplotlib.pyplot as plt
 plt.plot([1, 2, 3])
 plt.savefig("figure.pdf")
 ```
-This should work in most cases, however, in a virtual environment like [Google Colaboratory](https://colab.research.google.com/), you will not be able to get the file once the Jupyter server is stopped.
-By wrapping the file path by `in_notebook`, the PDF file will be directly saved into the Jupyter notebook and you will get a download link instead:
+This should work in many cases, however, in a virtual environment like [Google Colaboratory](https://colab.research.google.com/), you will not be able to get the file once the Jupyter server is stopped.
+By wrapping the file path by `in_notebook`, the PDF file will be directly saved to the Jupyter notebook and you will get a download link instead:
 ```python
 import matplotlib.pyplot as plt
 from jupyter_io import in_notebook
