@@ -105,9 +105,9 @@ def to_html(
     with open(file := Path(file), "+rb") as f:
         data = b64encode(f.read()).decode()
 
+    download = file.name
     href = f"data:{guess_type(file)[0]};base64,{data}"
-    link = f"<a download='{file.name}' href='{href}' target='_blank'>{file}</a>"
-    return HTML(f"<p>{prefix}{link}{suffix}</p>")
+    return HTML(f"<p>{prefix}<a {download=} {href=}>{download}</a>{suffix}</p>")
 
 
 def to_notebook(
