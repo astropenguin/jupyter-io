@@ -20,7 +20,6 @@ TPathLike = TypeVar("TPathLike", bound=PathLike)
 
 
 # constants
-DEFAULT_LEAVE = False
 DEFAULT_PREFIX = "Download: "
 DEFAULT_SUFFIX = ""
 
@@ -29,7 +28,6 @@ def in_notebook(
     file: TPathLike,
     /,
     *,
-    leave: bool = DEFAULT_LEAVE,
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> TPathLike:
@@ -43,7 +41,6 @@ def in_notebook(
 
     Args:
         file: Path of the file to be saved.
-        leave: Whether to leave the original file.
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
@@ -75,7 +72,7 @@ def in_notebook(
 
         def callback(result: ExecutionResult, /) -> None:
             try:
-                to_notebook(file, leave=leave, prefix=prefix, suffix=suffix)
+                to_notebook(file, prefix=prefix, suffix=suffix)
             finally:
                 ip.events.unregister("post_run_cell", callback)
 
@@ -114,7 +111,6 @@ def to_notebook(
     file: PathLike,
     /,
     *,
-    leave: bool = DEFAULT_LEAVE,
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
 ) -> None:
@@ -126,7 +122,6 @@ def to_notebook(
 
     Args:
         file: Path of the file to be saved.
-        leave: Whether to leave the original file.
         prefix: Prefix of the download link.
         suffix: Suffix of the download link.
 
@@ -156,6 +151,3 @@ def to_notebook(
 
     """
     display(to_html(file, prefix=prefix, suffix=suffix))
-
-    if not leave:
-        Path(file).unlink(missing_ok=True)
