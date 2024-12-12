@@ -5,6 +5,7 @@ __all__ = ["in_notebook", "to_notebook"]
 from base64 import b64encode
 from mimetypes import guess_type
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import TypeVar, Union
 
 
@@ -68,17 +69,21 @@ def in_notebook(
                 f.write("1, 2, 3\\n")
 
     """
-    if (ip := get_ipython()) is not None:
+    if (ip := get_ipython()) is None:
+        raise RuntimeError("Current interactive shell does not exist.")
 
-        def callback(result: ExecutionResult, /) -> None:
-            try:
-                to_notebook(file, prefix=prefix, suffix=suffix)
-            finally:
-                ip.events.unregister("post_run_cell", callback)
+    tempdir = TemporaryDirectory()
+    tempfile = Path(tempdir.name) / Path(file).name
 
-        ip.events.register("post_run_cell", callback)
+    def callback(result: ExecutionResult, /) -> None:
+        try:
+            to_notebook(tempfile, prefix=prefix, suffix=suffix)
+        finally:
+            ip.events.unregister("post_run_cell", callback)
+            tempdir.cleanup()
 
-    return file
+    ip.events.register("post_run_cell", callback)
+    return type(file)(tempfile)
 
 
 def to_html(
