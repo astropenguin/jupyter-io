@@ -3,8 +3,8 @@ message: "If you use this software, please cite it as below."
 
 title: "jupyter-io"
 abstract: Saving and loading files directly into Jupyter notebooks
-version: 2.0.0
-date-released: 2024-12-12
+version: 2.0.1
+date-released: 2024-12-28
 license: "MIT"
 doi: "10.5281/zenodo.14379974"
 url: "https://github.com/astropenguin/jupyter-io"

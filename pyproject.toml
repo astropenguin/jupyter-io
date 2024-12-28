@@ -1,6 +1,6 @@
 [project]
 name = "jupyter-io"
-version = "2.0.0"
+version = "2.0.1"
 description = "Saving and loading files directly into Jupyter notebooks"
 readme = "README.md"
 keywords = ["python", "jupyter", "io"]
@@ -29,7 +29,7 @@ email = "taniguchi.akio@gmail.com"
 file = "LICENSE"
 
 [project.urls]
-homepage = "https://astropenguin.github.io/jupyter-io/v2.0.0"
+homepage = "https://astropenguin.github.io/jupyter-io/v2.0.1"
 repository = "https://github.com/astropenguin/jupyter-io"
 
 [dependency-groups]
