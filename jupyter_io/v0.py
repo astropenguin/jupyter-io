@@ -40,7 +40,8 @@ def savefile_in_notebook(
         This function is deprecated and will be removed in a future release.
         Use ``jupyter_io.in_notebook`` instead like::
 
-            f.write(in_notebook(filename))
+            with open(in_notebook(filename), 'w') as g:
+                g.write(f.read())
 
     Args:
         f: File object (I/O object) to be saved.
@@ -53,7 +54,7 @@ def savefile_in_notebook(
         warn(
             "This function is deprecated and will be removed in a future release. "
             "Use jupyter_io.in_notebook function instead like: "
-            "f.write(in_notebook(filename))",
+            "g = open(in_notebook(filename), 'w'); g.write(f.read())",
             DeprecationWarning,
         )
 
@@ -77,7 +78,7 @@ def savefig_in_notebook(
         This function is deprecated and will be removed in a future release.
         Use ``jupyter_io.in_notebook`` instead like::
 
-            fig.savefig(in_notebook('figure.pdf'))
+            fig.savefig(in_notebook(filename))
 
     Args:
         fig: Matplotlib ``Figure`` object to be saved.
@@ -90,7 +91,7 @@ def savefig_in_notebook(
         warn(
             "This function is deprecated and will be removed in a future release. "
             "Use jupyter_io.in_notebook function instead like: "
-            "fig.savefig(in_notebook('figure.pdf'))",
+            "fig.savefig(in_notebook(filename))",
             DeprecationWarning,
         )
 
@@ -111,7 +112,7 @@ def savetable_in_notebook(
         This function is deprecated and will be removed in a future release.
         Use ``jupyter_io.in_notebook`` instead like::
 
-            table.to_csv(in_notebook('table.csv'))
+            table.to_csv(in_notebook(filename))
 
     Args:
         table: pandas ``DataFrame`` of ``Series object`` to be saved.
@@ -124,7 +125,7 @@ def savetable_in_notebook(
         warn(
             "This function is deprecated and will be removed in a future release. "
             "Use jupyter_io.in_notebook function instead like: "
-            "table.to_csv(in_notebook('table.csv'))",
+            "table.to_csv(in_notebook(filename))",
             DeprecationWarning,
         )
 
