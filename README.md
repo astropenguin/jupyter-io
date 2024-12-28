@@ -18,7 +18,7 @@ pip install jupyter-io
 
 jupyter-io provides the `in_notebook` function to directly save (i.e. embed) files to Jupyter notebooks.
 Suppose you create a Matplotlib figure want to save it as a PDF file.
-The following code will save the PDF file into your local environment:
+The following code will save the PDF file to your local environment:
 ```python
 import matplotlib.pyplot as plt
 
@@ -39,7 +39,7 @@ This makes Jupyter notebooks more portable, for example, to share the output dat
 
 ### More examples
 
-To save a pandas series into a notebook:
+To save a pandas series to a notebook:
 
 ```python
 import pandas as pd
@@ -49,7 +49,7 @@ ser = pd.Series([1, 2, 3])
 ser.to_csv(in_notebook("series.csv"))
 ```
 
-To save a general text into a notebook:
+To save a general text to a notebook:
 
 ```python
 from jupyter_io import in_notebook
