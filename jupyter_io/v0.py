@@ -11,13 +11,13 @@ from warnings import catch_warnings, simplefilter, warn
 from matplotlib.figure import Figure
 from matplotlib.pyplot import gcf
 from pandas import DataFrame, Series
-from .io import PathLike, in_notebook
+from .io import StrPath, in_notebook
 
 
 @overload
 def savefile_in_notebook(
     f: TextIO,
-    filename: PathLike,
+    filename: StrPath,
     encoding: str = "utf-8",
 ) -> None: ...
 
@@ -25,13 +25,13 @@ def savefile_in_notebook(
 @overload
 def savefile_in_notebook(
     f: BinaryIO,
-    filename: PathLike,
+    filename: StrPath,
 ) -> None: ...
 
 
 def savefile_in_notebook(
     f: Any,
-    filename: PathLike,
+    filename: StrPath,
     encoding: str = "utf-8",
 ) -> None:
     """Save file object (I/O object) in a notebook as a file.
@@ -69,7 +69,7 @@ def savefile_in_notebook(
 
 def savefig_in_notebook(
     fig: Optional[Figure] = None,
-    filename: PathLike = "figure.pdf",
+    filename: StrPath = "figure.pdf",
     **kwargs: Any,
 ) -> None:
     """Save matplotlib figure in a notebook as a file.
@@ -103,7 +103,7 @@ def savefig_in_notebook(
 
 def savetable_in_notebook(
     table: Union[DataFrame, "Series[Any]"],
-    filename: PathLike = "table.csv",
+    filename: StrPath = "table.csv",
     **kwargs: Any,
 ) -> None:
     """Save pandas DataFrame or Series in a notebook as a file.
