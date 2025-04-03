@@ -4,6 +4,7 @@ __all__ = ["in_notebook", "to_notebook"]
 # standard library
 from base64 import b64encode
 from mimetypes import guess_type
+from os import PathLike
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import TypeVar, Union
@@ -16,8 +17,8 @@ from IPython.display import HTML, display
 
 
 # type hints
-PathLike = Union[Path, str]
-TPathLike = TypeVar("TPathLike", bound=PathLike)
+StrPath = Union[PathLike[str], str]
+TStrPath = TypeVar("TStrPath", bound=StrPath)
 
 
 # constants
@@ -26,12 +27,12 @@ DEFAULT_SUFFIX = ""
 
 
 def in_notebook(
-    file: TPathLike,
+    file: TStrPath,
     /,
     *,
     prefix: str = DEFAULT_PREFIX,
     suffix: str = DEFAULT_SUFFIX,
-) -> TPathLike:
+) -> TStrPath:
     """Save a file to a Jupyter notebook as a data-embedded download link.
 
     This function is intended to be used together with file saving
@@ -92,7 +93,7 @@ def in_notebook(
 
 
 def to_html(
-    file: PathLike,
+    file: StrPath,
     /,
     *,
     prefix: str = DEFAULT_PREFIX,
@@ -118,7 +119,7 @@ def to_html(
 
 
 def to_notebook(
-    file: PathLike,
+    file: StrPath,
     /,
     *,
     prefix: str = DEFAULT_PREFIX,

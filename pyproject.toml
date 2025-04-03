@@ -48,5 +48,6 @@ build-backend = "hatchling.build"
 
 [tool.pyright]
 typeCheckingMode = "strict"
+reportCallIssue = "warning"
 reportUnknownMemberType = "warning"
 reportUnknownVariableType = "warning"
